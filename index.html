@@ -1,0 +1,2301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FutureSpark 🚀 - Career Discovery Game</title>
+  
+  <!-- Premium SaaS Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #050409;
+      --card-bg: rgba(10, 8, 20, 0.75);
+      --card-border: rgba(0, 240, 255, 0.15);
+      --text-white: #ffffff;
+      --text-muted: #8a889d;
+      
+      /* Vibrant Career Colors */
+      --color-engineer: #ff477e;
+      --color-robotics: #00f0ff;
+      --color-graphic: #ff00ff;
+      --color-uiux: #7000ff;
+      --color-developer: #39ff14;
+      --color-datascientist: #ffd700;
+      --color-scientist: #d463ff;
+      --color-teacher: #ff6b6b;
+      --color-manager: #00ffcc;
+      --color-entrepreneur: #ff9900;
+      
+      /* Premium shadow tokens */
+      --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.4);
+      --shadow-deep: 0 30px 60px rgba(0, 0, 0, 0.7);
+      
+      /* Neon Glow shadows for cards */
+      --glow-engineer: 0 15px 45px rgba(255, 71, 126, 0.2), inset 0 0 15px rgba(255, 71, 126, 0.08);
+      --glow-robotics: 0 15px 45px rgba(0, 240, 255, 0.2), inset 0 0 15px rgba(0, 240, 255, 0.08);
+      --glow-graphic: 0 15px 45px rgba(255, 0, 255, 0.2), inset 0 0 15px rgba(255, 0, 255, 0.08);
+      --glow-uiux: 0 15px 45px rgba(112, 0, 255, 0.2), inset 0 0 15px rgba(112, 0, 255, 0.08);
+      --glow-developer: 0 15px 45px rgba(57, 255, 20, 0.2), inset 0 0 15px rgba(57, 255, 20, 0.08);
+      --glow-datascientist: 0 15px 45px rgba(255, 215, 0, 0.2), inset 0 0 15px rgba(255, 215, 0, 0.08);
+      --glow-scientist: 0 15px 45px rgba(212, 99, 255, 0.2), inset 0 0 15px rgba(212, 99, 255, 0.08);
+      --glow-teacher: 0 15px 45px rgba(255, 107, 107, 0.2), inset 0 0 15px rgba(255, 107, 107, 0.08);
+      --glow-manager: 0 15px 45px rgba(0, 255, 204, 0.2), inset 0 0 15px rgba(0, 255, 204, 0.08);
+      --glow-entrepreneur: 0 15px 45px rgba(255, 153, 0, 0.2), inset 0 0 15px rgba(255, 153, 0, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    [tabindex="-1"]:focus {
+      outline: none !important;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-dark);
+      background-image: 
+        linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      background-position: center;
+      color: var(--text-white);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 24px 15px;
+    }
+
+    /* Ambient animated background blobs */
+    .bg-blobs {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .blob {
+      position: absolute;
+      width: 40vw;
+      height: 40vw;
+      max-width: 500px;
+      max-height: 500px;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.25;
+      animation: floatBlob 20s infinite alternate ease-in-out;
+    }
+
+    .blob-1 {
+      background: radial-gradient(circle, var(--color-robotics) 0%, transparent 70%);
+      top: -10%;
+      left: -10%;
+    }
+
+    .blob-2 {
+      background: radial-gradient(circle, var(--color-uiux) 0%, transparent 70%);
+      bottom: -15%;
+      right: -10%;
+      animation-delay: -5s;
+    }
+
+    .blob-3 {
+      background: radial-gradient(circle, var(--color-graphic) 0%, transparent 70%);
+      top: 30%;
+      left: 35%;
+      animation-delay: -10s;
+    }
+
+    @keyframes floatBlob {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(60px, -50px) scale(1.1); }
+      100% { transform: translate(-45px, 45px) scale(0.95); }
+    }
+
+    /* Confetti Canvas Overlay */
+    #confetti-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* Settings / Header */
+    .navbar {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto clamp(12px, 2vh, 20px) auto;
+      background: rgba(10, 8, 20, 0.65);
+      backdrop-filter: blur(20px);
+      border: 1.5px solid transparent;
+      background-image: linear-gradient(rgba(10, 8, 20, 0.65), rgba(10, 8, 20, 0.65)) padding-box,
+                        linear-gradient(135deg, rgba(0, 240, 255, 0.15) 0%, rgba(0, 240, 255, 0.02) 100%) border-box;
+      border-radius: 20px;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 50;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+    }
+    
+    .nav-logo {
+      font-family: 'Manrope', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-white);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      background: linear-gradient(135deg, #ffffff 50%, var(--color-robotics) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: opacity 0.25s;
+    }
+    
+    .nav-logo:hover {
+      opacity: 0.85;
+    }
+    
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 0, 0, 0.25);
+      padding: 4px;
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .nav-item {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border: none;
+      background: transparent;
+    }
+    
+    .nav-item.active {
+      color: var(--color-robotics);
+      background: rgba(0, 240, 255, 0.1);
+      box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.05);
+    }
+    
+    .nav-item:hover:not(.active):not(.disabled) {
+      color: var(--text-white);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .nav-item.disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+    
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .sound-btn {
+      background: rgba(10, 8, 20, 0.85);
+      border: 1px solid var(--card-border);
+      color: var(--text-white);
+      padding: 10px 18px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255, 255, 255, 0.05);
+      transition: all 0.25s ease;
+    }
+
+    .sound-btn:hover, .sound-btn:focus {
+      background: rgba(0, 240, 255, 0.08);
+      border-color: var(--color-robotics);
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
+      outline: 3px solid var(--color-robotics);
+      outline-offset: 2px;
+    }
+
+    .sound-btn:active {
+      transform: translateY(0) scale(0.97);
+    }
+
+    /* Main Area */
+    main {
+      width: 100%;
+      max-width: 1200px;
+      z-index: 2;
+      position: relative;
+    }
+
+    .screen {
+      display: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .screen.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Glassmorphism Card Style */
+    .card {
+      background: linear-gradient(#0a0814, #0a0814) padding-box,
+                  linear-gradient(135deg, rgba(0, 240, 255, 0.25) 0%, rgba(0, 240, 255, 0.03) 100%) border-box;
+      border: 1.5px solid transparent;
+      border-radius: 24px;
+      padding: 24px;
+      backdrop-filter: blur(30px);
+      box-shadow: var(--shadow-deep), 0 0 35px rgba(0, 240, 255, 0.05);
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s ease, transform 0.3s ease, background 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(#0a0814, #0a0814) padding-box,
+                  linear-gradient(135deg, rgba(0, 240, 255, 0.4) 0%, rgba(0, 240, 255, 0.08) 100%) border-box;
+      box-shadow: var(--shadow-deep), 0 0 45px rgba(0, 240, 255, 0.08);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--color-robotics), var(--color-uiux), var(--color-developer));
+    }
+
+    /* Welcome Card Styling */
+    .welcome-card-wrapper {
+      max-width: 500px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .welcome-card-wrapper h1 {
+      font-family: 'Manrope', sans-serif;
+      font-size: 3.2rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      line-height: 1.1;
+      background: linear-gradient(135deg, #ffffff 40%, var(--color-robotics) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 10px rgba(0,240,255,0.15));
+    }
+
+    .welcome-card-wrapper .subtitle {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--color-robotics);
+      margin-bottom: 20px;
+    }
+
+    .welcome-card-wrapper .description {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      line-height: 1.6;
+    }
+
+    /* Start button */
+    .btn-primary {
+      font-family: 'Manrope', sans-serif;
+      background: linear-gradient(135deg, var(--color-robotics) 0%, var(--color-developer) 100%);
+      color: #05040a;
+      border: none;
+      padding: 20px 48px;
+      font-size: 1.4rem;
+      font-weight: 700;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 12px 30px rgba(0, 240, 255, 0.3);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .btn-primary:hover, .btn-primary:focus {
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 15px 35px rgba(0, 240, 255, 0.45);
+      outline: 3px solid #ffffff;
+      outline-offset: 4px;
+    }
+
+    .btn-primary:active {
+      transform: translateY(-1px) scale(0.98);
+    }
+
+    /* Floating Icons welcome page */
+    .floating-icons-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .floating-icon {
+      position: absolute;
+      font-size: 2.8rem;
+      animation: floatUpRandom 10s infinite linear;
+      opacity: 0;
+    }
+
+    @keyframes floatUpRandom {
+      0% {
+        transform: translateY(115%) rotate(0deg) scale(0.7);
+        opacity: 0;
+      }
+      20% { opacity: 0.75; }
+      80% { opacity: 0.75; }
+      100% {
+        transform: translateY(-15%) rotate(360deg) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    .ico-1 { left: 4%; animation-duration: 11s; animation-delay: 0s; }
+    .ico-2 { left: 15%; animation-duration: 8.5s; animation-delay: 2s; }
+    .ico-3 { left: 26%; animation-duration: 12s; animation-delay: 0.5s; }
+    .ico-4 { left: 38%; animation-duration: 9.5s; animation-delay: 3s; }
+    .ico-5 { left: 49%; animation-duration: 13s; animation-delay: 1.5s; }
+    .ico-6 { left: 61%; animation-duration: 10s; animation-delay: 4s; }
+    .ico-7 { left: 72%; animation-duration: 9s; animation-delay: 1s; }
+    .ico-8 { left: 83%; animation-duration: 11.5s; animation-delay: 2.5s; }
+    .ico-9 { left: 92%; animation-duration: 8s; animation-delay: 4.5s; }
+    .ico-10 { left: 45%; animation-duration: 14s; animation-delay: 5s; }
+
+    /* Quiz Screen Layout */
+    .quiz-card-wrapper {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .quiz-header-bar {
+      margin-bottom: 30px;
+      text-align: left;
+    }
+
+    .counter-text {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--color-robotics);
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 14px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--color-robotics), var(--color-developer));
+      border-radius: 8px;
+      transition: width 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .question-card-title {
+      font-family: 'Manrope', sans-serif;
+      font-size: 1.9rem;
+      font-weight: 600;
+      line-height: 1.35;
+      margin-bottom: 35px;
+      color: var(--text-white);
+    }
+
+    .answers-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .answer-btn {
+      font-family: 'Inter', sans-serif;
+      text-align: left;
+      background: var(--gradient-button);
+      border: 1.5px solid var(--card-border);
+      color: var(--text-white);
+      padding: 20px 24px;
+      font-size: 1.15rem;
+      font-weight: 600;
+      border-radius: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2), inset 0 2px 4px rgba(255,255,255,0.05);
+    }
+
+    .answer-btn:hover, .answer-btn:focus {
+      background: rgba(0, 240, 255, 0.06);
+      border-color: var(--color-robotics);
+      transform: scale(1.02) translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 240, 255, 0.25), inset 0 0 10px rgba(0, 240, 255, 0.15);
+      outline: 3px solid var(--color-robotics);
+      outline-offset: 3px;
+    }
+
+    .answer-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--color-datascientist);
+      transition: all 0.25s;
+    }
+
+    .answer-btn:hover .answer-badge, .answer-btn:focus .answer-badge {
+      background: var(--color-robotics);
+      color: #05040b;
+      box-shadow: 0 0 10px var(--color-robotics);
+    }
+
+    .keyboard-nav-hint {
+      margin-top: 25px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .badge-cap {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1.5px solid rgba(255, 255, 255, 0.25);
+      border-bottom-width: 3.5px;
+      padding: 1px 6px;
+      border-radius: 5px;
+      font-family: monospace;
+      font-weight: 700;
+    }
+
+    /* -----------------------------------------
+       Premium SaaS Dashboard Redesign (Result Screen)
+       ----------------------------------------- */
+    
+    /* Result Card Styles */
+    .result-card.engineer-theme {
+      background: linear-gradient(#0a0814, #0a0814) padding-box,
+                  linear-gradient(135deg, var(--color-engineer) 0%, rgba(255, 71, 126, 0.05) 100%) border-box;
+      box-shadow: var(--shadow-deep), var(--glow-engineer);
+    }
+    .result-card.robotics-theme {
+      background: linear-gradient(#0a0814, #0a0814) padding-box,
+                  linear-gradient(135deg, var(--color-robotics) 0%, rgba(0, 240, 255, 0.05) 100%) border-box;
+      box-shadow: var(--shadow-deep), var(--glow-robotics);
+    }
+    .result-card.designer-theme {
+      background: linear-gradient(#0a0814, #0a0814) padding-box,
+                  linear-gradient(135deg, var(--color-graphic) 0%, rgba(255, 0, 255, 0.05) 100%) border-box;
+      box-shadow: var(--shadow-deep), var(--glow-graphic);
+    }
+    .result-card.uiux-theme {
+      background: linear-gradient(#0a0814, #0a0814) padding-box,
+                  linear-gradient(135deg, var(--color-uiux) 0%, rgba(112, 0, 255, 0.05) 100%) border-box;
+      box-shadow: var(--shadow-deep), var(--glow-uiux);
+    }
+    .result-card.developer-theme {
+      background: linear-gradient(#0a0814, #0a0814) padding-box,
+                  linear-gradient(135deg, var(--color-developer) 0%, rgba(57, 255, 20, 0.05) 100%) border-box;
+      box-shadow: var(--shadow-deep), var(--glow-developer);
+    }
+    .result-card.datascientist-theme {
+      background: linear-gradient(#0a0814, #0a0814) padding-box,
+                  linear-gradient(135deg, var(--color-datascientist) 0%, rgba(255, 215, 0, 0.05) 100%) border-box;
+      box-shadow: var(--shadow-deep), var(--glow-datascientist);
+    }
+    .result-card.scientist-theme {
+      background: linear-gradient(#0a0814, #0a0814) padding-box,
+                  linear-gradient(135deg, var(--color-scientist) 0%, rgba(212, 99, 255, 0.05) 100%) border-box;
+      box-shadow: var(--shadow-deep), var(--glow-scientist);
+    }
+    .result-card.teacher-theme {
+      background: linear-gradient(#0a0814, #0a0814) padding-box,
+                  linear-gradient(135deg, var(--color-teacher) 0%, rgba(255, 107, 107, 0.05) 100%) border-box;
+      box-shadow: var(--shadow-deep), var(--glow-teacher);
+    }
+    .result-card.manager-theme {
+      background: linear-gradient(#0a0814, #0a0814) padding-box,
+                  linear-gradient(135deg, var(--color-manager) 0%, rgba(0, 255, 204, 0.05) 100%) border-box;
+      box-shadow: var(--shadow-deep), var(--glow-manager);
+    }
+    .result-card.entrepreneur-theme {
+      background: linear-gradient(#0a0814, #0a0814) padding-box,
+                  linear-gradient(135deg, var(--color-entrepreneur) 0%, rgba(255, 153, 0, 0.05) 100%) border-box;
+      box-shadow: var(--shadow-deep), var(--glow-entrepreneur);
+    }
+
+    /* Layout structure split */
+    .result-layout-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      text-align: left;
+    }
+
+    .result-left-panel {
+      width: 100%;
+    }
+
+    /* Left Hero card specifics */
+    .hero-card-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      height: 100%;
+      justify-content: flex-start;
+      gap: clamp(8px, 1.4vh, 12px);
+    }
+
+    @media (min-width: 1024px) {
+      .hero-card-content {
+        align-items: flex-start;
+        text-align: left;
+        justify-content: flex-start;
+        gap: clamp(8px, 1.4vh, 12px);
+      }
+    }
+
+    .badge-container-glow {
+      background: rgba(255, 221, 87, 0.08);
+      border: 1.5px solid var(--color-datascientist);
+      border-radius: 20px;
+      padding: clamp(6px, 1vh, 8px) clamp(12px, 1.5vw, 16px);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 0 25px rgba(255, 221, 87, 0.2);
+    }
+
+    .badge-medal {
+      font-size: clamp(1.1rem, 1.8vh, 1.4rem);
+    }
+
+    .badge-title-txt {
+      font-size: clamp(0.75rem, 1.2vh, 0.8rem);
+      font-weight: 800;
+      color: var(--color-datascientist);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .result-career-icon {
+      font-size: clamp(2rem, 3.8vh, 2.8rem);
+      margin: clamp(2px, 0.6vh, 6px) 0;
+      display: inline-block;
+      animation: floatResultEmoji 2.5s infinite ease-in-out;
+      filter: drop-shadow(0 0 15px rgba(0, 240, 255, 0.25));
+    }
+
+    @keyframes floatResultEmoji {
+      0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
+      50% { transform: translateY(-6px) scale(1.06) rotate(4deg); }
+    }
+
+    .result-career-title {
+      font-family: 'Manrope', sans-serif;
+      font-size: clamp(22px, 3.4vh, 32px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+      margin-bottom: 2px;
+    }
+
+    .result-career-desc {
+      font-size: clamp(12px, 1.5vh, 14px);
+      line-height: 1.35;
+      color: var(--text-white);
+      max-width: 95%;
+    }
+
+    .tags-panel {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+      margin: 2px 0;
+    }
+
+    @media (min-width: 1024px) {
+      .tags-panel {
+        justify-content: flex-start;
+      }
+    }
+
+    .tech-tag {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 4px 10px;
+      border-radius: 50px;
+      font-size: clamp(0.7rem, 1.1vh, 0.75rem);
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* Small divider */
+    .accent-divider {
+      width: 40px;
+      height: 2px;
+      background: rgba(255,255,255,0.1);
+      margin: 4px 0;
+    }
+
+    /* Notepad reflections */
+    .journal-panel {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 16px;
+      padding: clamp(10px, 1.4vh, 14px);
+      text-align: left;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.25);
+    }
+
+    .journal-top {
+      font-size: clamp(0.8rem, 1.3vh, 0.85rem);
+      font-weight: 700;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .save-alert {
+      font-size: 0.75rem;
+      color: var(--color-developer);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .save-alert.visible {
+      opacity: 1;
+    }
+
+    .textarea-box {
+      width: 100%;
+      height: clamp(36px, 4.5vh, 50px);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 8px 10px;
+      color: var(--text-white);
+      font-family: inherit;
+      font-size: clamp(0.85rem, 1.3vh, 0.9rem);
+      resize: none;
+      outline: none;
+      transition: border-color 0.25s;
+    }
+
+    .textarea-box:focus {
+      border-color: var(--color-robotics);
+    }
+
+    .actions-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(6px, 1vh, 8px);
+      width: 100%;
+      margin-top: auto;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-white);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 20px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .btn-secondary:hover, .btn-secondary:focus {
+      background: rgba(255, 255, 255, 0.18);
+      transform: translateY(-2px);
+      outline: 3px solid var(--text-white);
+      outline-offset: 2px;
+    }
+
+    .btn-secondary:active {
+      transform: translateY(0) scale(0.97);
+    }
+
+    /* Right column panels definitions */
+    .result-right-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+    }
+
+    .dashboard-panel {
+      background: linear-gradient(#07060f, #07060f) padding-box,
+                  linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%) border-box;
+      border: 1.5px solid transparent;
+      border-radius: 24px;
+      padding: 24px;
+      text-align: left;
+      position: relative;
+      box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.35), 0 5px 15px rgba(0, 0, 0, 0.25);
+      transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .dashboard-panel:hover {
+      background: linear-gradient(#07060f, #07060f) padding-box,
+                  linear-gradient(135deg, rgba(0, 240, 255, 0.2) 0%, rgba(0, 240, 255, 0.05) 100%) border-box;
+      box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.35), 0 8px 25px rgba(0, 240, 255, 0.05);
+    }
+
+    .dashboard-panel h3 {
+      font-family: 'Manrope', sans-serif;
+      font-size: clamp(16px, 2.2vh, 20px);
+      font-weight: 700;
+      margin-bottom: 0;
+      color: var(--color-robotics);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Animated Compatibility Chart elements */
+    .chart-container {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(6px, 0.8vh, 10px);
+      margin-top: 0;
+    }
+
+    .chart-row {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .chart-name {
+      width: 140px;
+      font-size: clamp(12px, 1.6vh, 14px);
+      font-weight: 700;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .chart-bar-bg {
+      flex-grow: 1;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .chart-bar-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 5px;
+      transition: width 1s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .chart-value {
+      width: 40px;
+      font-size: clamp(12px, 1.6vh, 14px);
+      font-weight: 800;
+      text-align: right;
+    }
+
+    /* Goal Checklist elements */
+    .goal-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: clamp(4px, 0.8vh, 8px);
+    }
+
+    .goal-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      cursor: pointer;
+      user-select: none;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      padding: clamp(6px, 1vh, 8px) 12px;
+      border-radius: 12px;
+      transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .goal-item:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: var(--color-developer);
+      transform: translateX(4px);
+    }
+
+    .goal-checkbox {
+      margin-top: 3px;
+      min-width: 16px;
+      height: 16px;
+      cursor: pointer;
+      accent-color: var(--color-developer);
+    }
+
+    .goal-text {
+      font-size: clamp(12px, 1.6vh, 14px);
+      line-height: 1.4;
+      color: var(--text-white);
+      transition: color 0.2s, text-decoration 0.2s;
+    }
+
+    .goal-checkbox:checked + .goal-text {
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+
+    /* Card 3: Strengths Card layout */
+    .strengths-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .strength-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 12px 16px;
+      border-radius: 16px;
+      font-size: clamp(13px, 1.5vh, 16px);
+      font-weight: 600;
+      color: var(--text-white);
+      transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .strength-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-2px);
+      border-color: var(--color-robotics);
+      box-shadow: 0 4px 12px rgba(0, 240, 255, 0.1);
+    }
+
+    /* Tech illustration styles */
+    .tech-illustration-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 8px 0;
+    }
+
+    .tech-illustration-svg {
+      width: 100%;
+      max-width: 280px;
+      height: auto;
+      max-height: 50px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* -----------------------------------------
+       Strict Grid Responsiveness & No-Scroll Rules
+       ----------------------------------------- */
+    @media (min-width: 1024px) {
+      body {
+        overflow: hidden;
+        height: 100vh;
+        justify-content: flex-start;
+        padding-top: 20px;
+        padding-bottom: 20px;
+      }
+
+      /* Fits exactly inside 100vh viewport with navbar */
+      main {
+        height: calc(100vh - 120px);
+      }
+
+      #resultScreen {
+        height: 100%;
+      }
+
+      #resultScreen .result-card {
+        height: 100%;
+        max-height: 100%;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        padding: 24px;
+        border-radius: 24px;
+      }
+
+      .result-layout-grid {
+        grid-template-columns: 4fr 6fr;
+        gap: 20px;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .result-left-panel {
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .hero-card-content {
+        align-items: flex-start;
+        text-align: left;
+      }
+
+      .tags-panel {
+        justify-content: flex-start;
+      }
+
+      .result-right-panel {
+        height: 100%;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      /* 3 equal height cards on desktop */
+      .result-right-panel .dashboard-panel {
+        height: calc(33.33% - 13.33px);
+        margin-bottom: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: clamp(8px, 1.2vh, 12px);
+        padding: clamp(12px, 1.8vh, 18px) 24px;
+        border-radius: 24px;
+      }
+    }
+
+    /* Tablet layout */
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .result-layout-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      .hero-card-content {
+        align-items: flex-start;
+        text-align: left;
+      }
+      .tags-panel {
+        justify-content: flex-start;
+      }
+    }
+
+    /* Mobile viewports */
+    @media (max-width: 767px) {
+      body {
+        padding: 16px 10px;
+      }
+      .result-career-title {
+        font-size: 32px;
+      }
+      .result-layout-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .strengths-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Modal Styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(5, 4, 9, 0.85);
+      backdrop-filter: blur(20px);
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    
+    .modal-card {
+      background: linear-gradient(#0c0a1a, #0c0a1a) padding-box,
+                  linear-gradient(135deg, rgba(0, 240, 255, 0.3) 0%, rgba(0, 240, 255, 0.05) 100%) border-box;
+      border: 1.5px solid transparent;
+      border-radius: 24px;
+      padding: 24px;
+      width: 90%;
+      max-width: 500px;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-deep);
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+    
+    .modal-overlay.active .modal-card {
+      transform: scale(1);
+    }
+    
+    .modal-content-scroll {
+      overflow-y: auto;
+      flex-grow: 1;
+      padding-right: 8px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+    }
+    
+    .modal-content-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .modal-content-scroll::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 3px;
+    }
+    
+    .response-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 12px;
+      text-align: left;
+    }
+    
+    .response-q {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-white);
+      margin-bottom: 6px;
+    }
+    
+    .response-a {
+      font-size: 0.9rem;
+      color: var(--color-robotics);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+    }
+
+    .response-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(0, 240, 255, 0.15);
+      border: 1px solid var(--color-robotics);
+      color: var(--color-robotics);
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background blobs -->
+  <div class="bg-blobs" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-logo" id="navLogo">
+      <span>FutureSpark 🚀</span>
+    </div>
+    <div class="nav-links">
+      <button class="nav-item active" id="navDiscover">Discover</button>
+      <button class="nav-item disabled" id="navQuiz">Assessment</button>
+      <button class="nav-item disabled" id="navResults">Results</button>
+    </div>
+    <div class="nav-actions">
+      <button class="sound-btn" id="soundToggleBtn" aria-label="Sound settings: Enabled. Click to mute." style="padding: 8px 16px; font-size: 0.85rem; border-radius: 50px;">
+        <span id="soundIcon" aria-hidden="true">🔊</span>
+        <span id="soundText">Sound On</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <main>
+
+    <!-- Welcome Screen -->
+    <div id="welcomeScreen" class="screen active">
+      <div class="card welcome-card-wrapper">
+        <!-- Floating welcome icons -->
+        <div class="floating-icons-container" aria-hidden="true">
+          <span class="floating-icon ico-1">🚀</span>
+          <span class="floating-icon ico-2">🤖</span>
+          <span class="floating-icon ico-3">🎨</span>
+          <span class="floating-icon ico-4">💻</span>
+          <span class="floating-icon ico-5">🧪</span>
+          <span class="floating-icon ico-6">🏗️</span>
+          <span class="floating-icon ico-7">📱</span>
+          <span class="floating-icon ico-8">📊</span>
+          <span class="floating-icon ico-9">💡</span>
+          <span class="floating-icon ico-10">🌟</span>
+        </div>
+
+        <h1>FutureSpark</h1>
+        <p class="subtitle">Discover exciting careers that match your interests!</p>
+        <p class="description">Answer 5 fun questions and explore careers that could inspire your future.</p>
+        
+        <button id="startBtn" class="btn-primary">
+          Start Game 🚀
+        </button>
+      </div>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quizScreen" class="screen">
+      <div class="card quiz-card-wrapper">
+        <!-- Tracker -->
+        <div class="quiz-header-bar">
+          <div class="counter-text">
+            <span id="quizCounterText">Question 1/5</span>
+            <span id="quizPctText">0%</span>
+          </div>
+          <div class="progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="progressIndicator">
+            <div class="progress-fill" id="progressFillBar"></div>
+          </div>
+        </div>
+
+        <!-- Question title -->
+        <h2 class="question-card-title" id="questionCardTitle">Question text here</h2>
+
+        <!-- Answer buttons -->
+        <div class="answers-grid" id="answersGrid">
+          <!-- Populated dynamically -->
+        </div>
+
+        <!-- Accessible hotkey cap suggestions -->
+        <div class="keyboard-nav-hint" aria-hidden="true">
+          <span>Press keys <span class="badge-cap">1</span> <span class="badge-cap">2</span> <span class="badge-cap">3</span> <span class="badge-cap">4</span> to pick</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Dashboard -->
+    <div id="resultScreen" class="screen">
+      <div class="card result-card" id="resultCard">
+        
+        <div class="result-layout-grid">
+          
+          <!-- Left Panel (40% width on Desktop): Hero Career Card -->
+          <div class="result-left-panel">
+            <div class="hero-card-content">
+              <!-- Glowing Achievement Badge -->
+              <div class="badge-container-glow">
+                <span class="badge-medal" id="badgeIcon">🏅</span>
+                <span class="badge-title-txt" id="badgeLabel">Creative Thinker</span>
+              </div>
+
+              <!-- Icon & Details -->
+              <div class="result-career-icon" id="resultIcon">🤖</div>
+              <h2 class="result-career-title" id="resultTitle">Robotics Engineer</h2>
+              <p class="result-career-desc" id="resultDesc">Career description</p>
+
+              <!-- Tags list -->
+              <div class="tags-panel" id="techTags">
+                <!-- Loaded dynamically -->
+              </div>
+
+              <!-- Compact Futuristic STEM Illustration -->
+              <div class="tech-illustration-container" aria-hidden="true">
+                <svg viewBox="0 0 300 80" class="tech-illustration-svg">
+                  <defs>
+                    <linearGradient id="ill-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="var(--color-robotics)" stop-opacity="0.2"/>
+                      <stop offset="50%" stop-color="var(--color-uiux)" stop-opacity="0.8"/>
+                      <stop offset="100%" stop-color="var(--color-developer)" stop-opacity="0.2"/>
+                    </linearGradient>
+                    <filter id="glow-ill">
+                      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                      <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  <path d="M 30,40 L 90,20 L 150,50 L 210,30 L 270,40" fill="none" stroke="url(#ill-grad)" stroke-width="2" />
+                  <path d="M 30,40 L 80,60 L 150,50 L 220,60 L 270,40" fill="none" stroke="url(#ill-grad)" stroke-width="1" stroke-dasharray="4,4" />
+                  <circle cx="30" cy="40" r="4" fill="var(--color-robotics)" filter="url(#glow-ill)" />
+                  <circle cx="90" cy="20" r="5" fill="var(--color-uiux)" filter="url(#glow-ill)" />
+                  <circle cx="150" cy="50" r="6" fill="var(--color-developer)" filter="url(#glow-ill)" />
+                  <circle cx="210" cy="30" r="5" fill="var(--color-robotics)" filter="url(#glow-ill)" />
+                  <circle cx="270" cy="40" r="4" fill="var(--color-uiux)" filter="url(#glow-ill)" />
+                  <circle cx="80" cy="60" r="3" fill="var(--color-developer)" />
+                  <circle cx="220" cy="60" r="3" fill="var(--color-robotics)" />
+                  <circle cx="150" cy="50" r="12" fill="none" stroke="var(--color-developer)" stroke-width="1" stroke-opacity="0.4" stroke-dasharray="2,2"></circle>
+                </svg>
+              </div>
+
+              <!-- High-tech Reflections Notepad -->
+              <div class="journal-panel">
+                <div class="journal-top">
+                  <label for="journalText">📝 FutureSpark reflections</label>
+                  <span class="save-alert" id="saveAlert">Autosaved!</span>
+                </div>
+                <textarea 
+                  id="journalText" 
+                  class="textarea-box" 
+                  placeholder="What excites you about this career? Write a short reflection..."
+                  spellcheck="true"
+                ></textarea>
+              </div>
+
+              <!-- Actions -->
+              <div class="actions-grid" style="grid-template-columns: 1fr; gap: 8px;">
+                <button id="restartBtn" class="btn-primary" style="padding: 12px; font-size: 1.1rem; width: 100%; border-radius: 50px;">
+                  Try Again 🔄
+                </button>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%;">
+                  <button id="viewAnswersBtn" class="btn-secondary" style="padding: 10px; font-size: 0.9rem; border-radius: 50px; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                    View Answers 📝
+                  </button>
+                  <button id="copyResultsBtn" class="btn-secondary" style="padding: 10px; font-size: 0.9rem; border-radius: 50px; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                    Copy Summary 📋
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Right Panel (60% width on Desktop): 3 Equal Height Cards -->
+          <div class="result-right-panel">
+            
+            <!-- Card 1: Compatibility Breakdown -->
+            <div class="dashboard-panel">
+              <h3>📊 Career Compatibility</h3>
+              <div class="chart-container" id="chartContainer">
+                <!-- Rendered dynamically -->
+              </div>
+            </div>
+
+            <!-- Card 2: Action Path Map -->
+            <div class="dashboard-panel">
+              <h3>🏗️ Your Action Path Map</h3>
+              <ul class="goal-list" id="projectsChecklist">
+                <!-- Populated dynamically -->
+              </ul>
+            </div>
+
+            <!-- Card 3: Strengths Card -->
+            <div class="dashboard-panel">
+              <h3>💪 Strengths & Talents</h3>
+              <div class="strengths-grid">
+                <div class="strength-item">
+                  <span aria-hidden="true">🧠</span> Problem Solver
+                </div>
+                <div class="strength-item">
+                  <span aria-hidden="true">🎨</span> Creative Thinker
+                </div>
+                <div class="strength-item">
+                  <span aria-hidden="true">🚀</span> Innovation Builder
+                </div>
+                <div class="strength-item">
+                  <span aria-hidden="true">🤝</span> Team Player
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Answers Report Modal -->
+  <div id="answersModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <h3 id="modalTitle" style="font-family: 'Manrope', sans-serif; font-size: 22px; color: var(--color-robotics); margin-bottom: 16px; text-align: left;">
+        📝 Your Quiz Responses
+      </h3>
+      <div class="modal-content-scroll" id="modalAnswersList">
+        <!-- Rendered dynamically -->
+      </div>
+      <button id="closeModalBtn" class="btn-primary" style="padding: 10px 24px; font-size: 1rem; width: auto; align-self: center; margin-top: 16px; border-radius: 50px; cursor: pointer;">
+        Close
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // --- Career Profiles Mapping ---
+    const careerProfiles = {
+      engineer: {
+        title: "Engineer",
+        icon: "🔧",
+        themeClass: "engineer-theme",
+        description: "You love solving physical challenges and building the future of structures, systems, and machines.",
+        funFact: "The word 'engineer' comes from a Latin word meaning 'cleverness'!",
+        projects: [
+          "Design a bridge using popsicle sticks 🏗️",
+          "Take apart an old clock to see its gears ⚙️",
+          "Read how electric batteries supply power 🔋"
+        ],
+        tech: ["3D CAD modeling", "Material Science", "Statics", "Mechanics"]
+      },
+      robotics: {
+        title: "Robotics Engineer",
+        icon: "🤖",
+        themeClass: "robotics-theme",
+        description: "You love building intelligent machines and solving real-world problems using robots.",
+        funFact: "Robots are used in hospitals, factories, space missions, and even underwater exploration.",
+        projects: [
+          "Build a cardboard robot model 📦",
+          "Learn the basics of Python loops 🐍",
+          "Explore how distance sensors work 📡"
+        ],
+        tech: ["Microcontrollers", "Python", "Sensors", "ROS (Robot OS)"]
+      },
+      graphic: {
+        title: "Graphic Designer",
+        icon: "🎨",
+        themeClass: "designer-theme",
+        description: "You have a great eye for visual storytelling, branding, and color harmony.",
+        funFact: "The first printed logo was created in the 15th century for a printer's business!",
+        projects: [
+          "Create a logo for your favorite team 🎨",
+          "Experiment with warm and cool colors 🖌️",
+          "Draw a poster for a school event 🖍️"
+        ],
+        tech: ["Vector Art", "Photoshop", "Typography", "Color Theory"]
+      },
+      uiux: {
+        title: "UI/UX Designer",
+        icon: "📱",
+        themeClass: "uiux-theme",
+        description: "You make sure apps, websites, and games are beautiful, simple, and super fun to use.",
+        funFact: "Bad app design can make people lose interest in less than 3 seconds!",
+        projects: [
+          "Sketch three layouts for a mobile app 🖍️",
+          "Try a free Figma wireframing tutorial 📱",
+          "Ask a friend to test your sketches 👥"
+        ],
+        tech: ["Figma Wireframes", "Interactive Prototypes", "User Mapping", "CSS layout"]
+      },
+      developer: {
+        title: "Software Developer",
+        icon: "💻",
+        themeClass: "developer-theme",
+        description: "You use code to build software, games, websites, and systems that run on computers.",
+        funFact: "The first computer programmer was a woman named Ada Lovelace, who wrote code in the 1840s!",
+        projects: [
+          "Write your first 'Hello, World!' in JS 💻",
+          "Create an interactive story in Scratch 🧩",
+          "Learn how HTML elements build pages 🌐"
+        ],
+        tech: ["JavaScript", "HTML/CSS", "Python", "Git", "C#"]
+      },
+      datascientist: {
+        title: "Data Scientist",
+        icon: "📊",
+        themeClass: "datascientist-theme",
+        description: "You discover hidden patterns and stories in numbers to help solve major global challenges.",
+        funFact: "Every day, humans generate enough data to fill 10 million Blu-ray discs!",
+        projects: [
+          "Log your family's screen time for a week 📊",
+          "Create a pie chart showing daily tasks ♟️",
+          "Research how Spotify recommends songs 🎵"
+        ],
+        tech: ["Spreadsheets", "SQL Databases", "Statistics", "Machine Learning"]
+      },
+      scientist: {
+        title: "Scientist",
+        icon: "🧪",
+        themeClass: "scientist-theme",
+        description: "You ask big questions, run experiments, and discover secrets about nature and space.",
+        funFact: "Marie Curie was the first person to win two Nobel Prizes in different sciences!",
+        projects: [
+          "Watch a water drop under a magnifying lens 🔬",
+          "Set up a small plant growing experiment 🌱",
+          "Learn how NASA rovers analyze Mars soil 🌌"
+        ],
+        tech: ["Microscopes", "Spectroscopy", "Scientific Method", "Lab Testing"]
+      },
+      teacher: {
+        title: "Teacher",
+        icon: "📚",
+        themeClass: "teacher-theme",
+        description: "You inspire others, share knowledge, and help people grow into their best selves.",
+        funFact: "Teaching is one of the oldest professions, with formal schools dating back over 4,000 years!",
+        projects: [
+          "Explain a homework problem to a friend 📚",
+          "Create a trivia quiz about your favorite topic ♟️",
+          "Practice speaking confidently in front of a mirror 👥"
+        ],
+        tech: ["Learning Systems", "Interactive Whiteboards", "Gamified Slides"]
+      },
+      projectmanager: {
+        title: "Project Manager",
+        icon: "👥",
+        themeClass: "manager-theme",
+        description: "You bring people together, organize timelines, and lead teams to finish complex challenges.",
+        funFact: "The Great Pyramid of Giza was one of history's first major project-managed structures!",
+        projects: [
+          "Plan a schedule for your next school project 📅",
+          "List roles and tasks for a group project 👥",
+          "Learn how to use a basic Kanban board online 📌"
+        ],
+        tech: ["Trello Boards", "Gantt Charts", "Agile Planning", "Slack / Discord"]
+      },
+      entrepreneur: {
+        title: "Entrepreneur",
+        icon: "🚀",
+        themeClass: "entrepreneur-theme",
+        description: "You turn innovative ideas into real businesses and create solutions that change lives.",
+        funFact: "Some of the world's most successful businesses were started by teenagers in their bedrooms!",
+        projects: [
+          "Write a plan for a lemonade stand or pet service 🚀",
+          "Design a simple paper startup pitch deck 🏢",
+          "Calculate sticker cost and profit margins 📊"
+        ],
+        tech: ["Pitch Decks", "Business Modeling", "Digital Marketing", "Financial Tracking"]
+      }
+    };
+
+    // --- Quiz Questions ---
+    const quizQuestions = [
+      {
+        question: "What do you enjoy most?",
+        options: [
+          { text: "🔧 Building or fixing things with my hands", key: "A" },
+          { text: "🎨 Drawing, designing, or making things look nice", key: "B" },
+          { text: "🧩 Solving puzzles and brain teasers", key: "C" },
+          { text: "🗣️ Talking to people and explaining ideas", key: "D" }
+        ]
+      },
+      {
+        question: "Pick a weekend activity:",
+        options: [
+          { text: "🪛 Taking apart a toy to see how it works", key: "A" },
+          { text: "🖍️ Designing a poster or doodling", key: "B" },
+          { text: "♟️ Playing strategy/logic games", key: "C" },
+          { text: "🎮 Organizing a game or activity for friends", key: "D" }
+        ]
+      },
+      {
+        question: "Which sounds most fun?",
+        options: [
+          { text: "🤖 Building a robot or a circuit", key: "A" },
+          { text: "📱 Creating a cool app interface or game design", key: "B" },
+          { text: "💻 Cracking a tricky math/coding problem", key: "C" },
+          { text: "👥 Leading a team project at school", key: "D" }
+        ]
+      },
+      {
+        question: "If you had a superpower, you'd want to:",
+        options: [
+          { text: "⚙️ Fix anything that's broken instantly", key: "A" },
+          { text: "✨ Make anything beautiful instantly", key: "B" },
+          { text: "🧠 Know the answer to any question instantly", key: "C" },
+          { text: "🗣️ Convince anyone of anything instantly", key: "D" }
+        ]
+      },
+      {
+        question: "Which school subject do you enjoy the most?",
+        options: [
+          { text: "🧮 Maths", key: "A" },
+          { text: "🎨 Art", key: "B" },
+          { text: "💻 Computer Science", key: "C" },
+          { text: "🗣️ English or Social Studies", key: "D" }
+        ]
+      }
+    ];
+
+    // --- Scoring Weights Matrix ---
+    const weightMatrix = {
+      0: {
+        A: { engineer: 3, robotics: 3, developer: 1 },
+        B: { graphic: 3, uiux: 3 },
+        C: { datascientist: 3, scientist: 3, developer: 2, robotics: 1 },
+        D: { teacher: 3, projectmanager: 3, entrepreneur: 2 }
+      },
+      1: {
+        A: { robotics: 3, engineer: 3 },
+        B: { uiux: 2, graphic: 3 },
+        C: { developer: 3, datascientist: 3, scientist: 2 },
+        D: { projectmanager: 3, entrepreneur: 3, teacher: 1 }
+      },
+      2: {
+        A: { robotics: 3, engineer: 3 },
+        B: { uiux: 3, graphic: 2 },
+        C: { developer: 3, datascientist: 2, scientist: 2 },
+        D: { projectmanager: 3, entrepreneur: 3, teacher: 1 }
+      },
+      3: {
+        A: { engineer: 3, robotics: 3 },
+        B: { graphic: 3, uiux: 3 },
+        C: { scientist: 3, datascientist: 3, developer: 1 },
+        D: { entrepreneur: 3, projectmanager: 2, teacher: 2 }
+      },
+      4: {
+        A: { datascientist: 3, scientist: 2, engineer: 2 },
+        B: { graphic: 3, uiux: 3 },
+        C: { developer: 3, robotics: 3 },
+        D: { teacher: 3, projectmanager: 2, entrepreneur: 2 }
+      }
+    };
+
+    // --- Achievement Badges ---
+    const badges = [
+      { name: "Creative Thinker", icon: "🏅" },
+      { name: "Problem Solver", icon: "🏅" },
+      { name: "Future Builder", icon: "🏅" },
+      { name: "Team Leader", icon: "🏅" },
+      { name: "Innovation Star", icon: "🏅" }
+    ];
+
+    // --- State Variables ---
+    let currentStep = 0; // 0 = welcome, 1-5 = questions, 6 = result
+    let userAnswers = [];
+    let isSoundMuted = false;
+    let audioCtx = null;
+    let matchedWinnerKey = '';
+
+    // --- DOM Elements ---
+    const welcomeScreen = document.getElementById('welcomeScreen');
+    const quizScreen = document.getElementById('quizScreen');
+    const resultScreen = document.getElementById('resultScreen');
+
+    const startBtn = document.getElementById('startBtn');
+    const restartBtn = document.getElementById('restartBtn');
+    const soundToggleBtn = document.getElementById('soundToggleBtn');
+    const soundIcon = document.getElementById('soundIcon');
+    const soundText = document.getElementById('soundText');
+
+    const quizCounterText = document.getElementById('quizCounterText');
+    const quizPctText = document.getElementById('quizPctText');
+    const progressFillBar = document.getElementById('progressFillBar');
+    const progressIndicator = document.getElementById('progressIndicator');
+    
+    const questionCardTitle = document.getElementById('questionCardTitle');
+    const answersGrid = document.getElementById('answersGrid');
+
+    const resultCard = document.getElementById('resultCard');
+    const badgeIcon = document.getElementById('badgeIcon');
+    const badgeLabel = document.getElementById('badgeLabel');
+    const resultIcon = document.getElementById('resultIcon');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultDesc = document.getElementById('resultDesc');
+    
+    const chartContainer = document.getElementById('chartContainer');
+    const projectsChecklist = document.getElementById('projectsChecklist');
+    const techTags = document.getElementById('techTags');
+
+    const journalText = document.getElementById('journalText');
+    const saveAlert = document.getElementById('saveAlert');
+    const copyResultsBtn = document.getElementById('copyResultsBtn');
+    const canvas = document.getElementById('confetti-canvas');
+    const ctx = canvas.getContext('2d');
+
+    // Answers Modal elements
+    const answersModal = document.getElementById('answersModal');
+    const viewAnswersBtn = document.getElementById('viewAnswersBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const modalAnswersList = document.getElementById('modalAnswersList');
+
+    // Nav Bar elements
+    const navLogo = document.getElementById('navLogo');
+    const navDiscover = document.getElementById('navDiscover');
+    const navQuiz = document.getElementById('navQuiz');
+    const navResults = document.getElementById('navResults');
+
+    // --- Confetti Particle Engine ---
+    let particles = [];
+    let animFrameId = null;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class SparkleParticle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * -canvas.height - 20;
+        this.size = Math.random() * 8 + 6;
+        this.color = `hsl(${Math.random() * 360}, 95%, 65%)`;
+        this.speedY = Math.random() * 3.5 + 2.5;
+        this.speedX = Math.random() * 2.5 - 1.25;
+        this.rotation = Math.random() * 360;
+        this.rotationSpeed = Math.random() * 4 - 2;
+        this.isStar = Math.random() > 0.45;
+      }
+      update() {
+        this.y += this.speedY;
+        this.x += this.speedX + Math.sin(this.y / 28) * 0.45;
+        this.rotation += this.rotationSpeed;
+      }
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate((this.rotation * Math.PI) / 180);
+        ctx.fillStyle = this.color;
+        
+        if (this.isStar) {
+          ctx.beginPath();
+          for (let i = 0; i < 5; i++) {
+            ctx.lineTo(Math.cos((18 + i * 72) * Math.PI / 180) * this.size,
+                       Math.sin((18 + i * 72) * Math.PI / 180) * this.size);
+            ctx.lineTo(Math.cos((54 + i * 72) * Math.PI / 180) * (this.size / 2),
+                       Math.sin((54 + i * 72) * Math.PI / 180) * (this.size / 2));
+          }
+          ctx.closePath();
+          ctx.fill();
+        } else {
+          ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+        }
+        ctx.restore();
+      }
+    }
+
+    function triggerCelebration() {
+      stopCelebration();
+      particles = [];
+      for (let i = 0; i < 150; i++) {
+        particles.push(new SparkleParticle());
+      }
+      animateCelebration();
+    }
+
+    function stopCelebration() {
+      if (animFrameId) {
+        cancelAnimationFrame(animFrameId);
+        animFrameId = null;
+      }
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function animateCelebration() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      let active = false;
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+        if (p.y < canvas.height + 20) {
+          active = true;
+        }
+      });
+      if (active) {
+        animFrameId = requestAnimationFrame(animateCelebration);
+      }
+    }
+
+    // --- Web Audio Synth Sound System ---
+    function initSynthAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    function playHoverSound() {
+      if (isSoundMuted) return;
+      initSynthAudio();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(600 + Math.random() * 200, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.015, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
+      
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.04);
+    }
+
+    function playClickChime() {
+      if (isSoundMuted) return;
+      initSynthAudio();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(320, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(850, audioCtx.currentTime + 0.18);
+      
+      gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.002, audioCtx.currentTime + 0.18);
+      
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.18);
+    }
+
+    function playVictoryMelody() {
+      if (isSoundMuted) return;
+      initSynthAudio();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+
+      const notes = [
+        { freq: 261.63, delay: 0.0 },
+        { freq: 329.63, delay: 0.08 },
+        { freq: 392.00, delay: 0.16 },
+        { freq: 523.25, delay: 0.24 },
+        { freq: 659.25, delay: 0.32 },
+        { freq: 783.99, delay: 0.44 }
+      ];
+
+      notes.forEach(note => {
+        const time = audioCtx.currentTime + note.delay;
+        const osc = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        
+        osc.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(note.freq, time);
+        
+        gainNode.gain.setValueAtTime(0, time);
+        gainNode.gain.linearRampToValueAtTime(0.12, time + 0.05);
+        gainNode.gain.exponentialRampToValueAtTime(0.005, time + 0.48);
+        
+        osc.start(time);
+        osc.stop(time + 0.5);
+      });
+    }
+
+    function speakResult(careerTitle) {
+      if (isSoundMuted) return;
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const text = `You might become a ${careerTitle}!`;
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.pitch = 1.15;
+        utterance.rate = 0.95;
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    function toggleMuteState() {
+      isSoundMuted = !isSoundMuted;
+      localStorage.setItem('futurespark-muted', isSoundMuted);
+      
+      if (isSoundMuted) {
+        soundIcon.textContent = "🔇";
+        soundText.textContent = "Sound Off";
+        soundToggleBtn.setAttribute('aria-label', "Sound settings: Muted. Click to unmute.");
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+        }
+      } else {
+        soundIcon.textContent = "🔊";
+        soundText.textContent = "Sound On";
+        soundToggleBtn.setAttribute('aria-label', "Sound settings: Enabled. Click to mute.");
+        playClickChime();
+      }
+    }
+
+    // Restore settings
+    if (localStorage.getItem('futurespark-muted') === 'true') {
+      isSoundMuted = true;
+      soundIcon.textContent = "🔇";
+      soundText.textContent = "Sound Off";
+      soundToggleBtn.setAttribute('aria-label', "Sound settings: Muted. Click to unmute.");
+    }
+
+    soundToggleBtn.addEventListener('click', () => {
+      initSynthAudio();
+      toggleMuteState();
+    });
+
+    // --- State Navigation ---
+    function navigateToScreen(targetScreen) {
+      const activeScreen = document.querySelector('.screen.active');
+      if (activeScreen) {
+        activeScreen.classList.remove('active');
+      }
+      targetScreen.classList.add('active');
+    }
+
+    function startGame() {
+      playClickChime();
+      currentStep = 1;
+      userAnswers = [];
+      renderQuestion();
+      navigateToScreen(quizScreen);
+      updateNavbar();
+    }
+
+    function renderQuestion() {
+      const qIdx = currentStep - 1;
+      const currentQ = quizQuestions[qIdx];
+
+      quizCounterText.textContent = `Question ${currentStep}/5`;
+      const pctVal = Math.round((qIdx / quizQuestions.length) * 100);
+      quizPctText.textContent = `${pctVal}%`;
+      progressFillBar.style.width = `${pctVal}%`;
+      progressIndicator.setAttribute('aria-valuenow', pctVal);
+      progressIndicator.setAttribute('aria-label', `Quiz progress: ${pctVal} percent`);
+
+      questionCardTitle.textContent = currentQ.question;
+      answersGrid.innerHTML = '';
+
+      currentQ.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'answer-btn';
+        btn.setAttribute('tabindex', '0');
+
+        const badge = document.createElement('span');
+        badge.className = 'answer-badge';
+        badge.textContent = String.fromCharCode(65 + idx);
+
+        const textContentNode = document.createTextNode(opt.text);
+        btn.appendChild(badge);
+        btn.appendChild(textContentNode);
+
+        btn.addEventListener('mouseenter', playHoverSound);
+        btn.addEventListener('focus', playHoverSound);
+        
+        btn.addEventListener('click', () => recordAnswer(opt.key));
+        answersGrid.appendChild(btn);
+      });
+
+      questionCardTitle.setAttribute('tabindex', '-1');
+      questionCardTitle.focus();
+    }
+
+    function recordAnswer(key) {
+      playClickChime();
+      userAnswers.push(key);
+
+      if (currentStep < quizQuestions.length) {
+        currentStep++;
+        renderQuestion();
+        updateNavbar();
+      } else {
+        currentStep = 6;
+        renderResults();
+      }
+    }
+
+    function renderResults() {
+      // Calculate career scoring weights
+      const scores = {
+        engineer: 0, robotics: 0, graphic: 0, uiux: 0, developer: 0,
+        datascientist: 0, scientist: 0, teacher: 0, projectmanager: 0, entrepreneur: 0
+      };
+
+      userAnswers.forEach((ans, qIdx) => {
+        const mappings = weightMatrix[qIdx][ans];
+        for (const careerKey in mappings) {
+          scores[careerKey] += mappings[careerKey];
+        }
+      });
+
+      // Find highest score
+      let maxScore = -1;
+      let winningCandidates = [];
+      for (const key in scores) {
+        if (scores[key] > maxScore) {
+          maxScore = scores[key];
+          winningCandidates = [key];
+        } else if (scores[key] === maxScore) {
+          winningCandidates.push(key);
+        }
+      }
+
+      // Tie breaker
+      const winner = winningCandidates[Math.floor(Math.random() * winningCandidates.length)];
+      matchedWinnerKey = winner;
+      const profile = careerProfiles[winner];
+
+      speakResult(profile.title);
+
+      // Update card theme and visuals
+      resultCard.className = 'card result-card ' + profile.themeClass;
+      resultTitle.textContent = profile.title;
+      resultIcon.textContent = profile.icon;
+      resultDesc.textContent = profile.description;
+
+      // Populate interactive checklist (Action Path map)
+      projectsChecklist.innerHTML = '';
+      const localGoalsKey = `futurespark-goals-${winner}`;
+      const checkedGoals = JSON.parse(localStorage.getItem(localGoalsKey) || '[]');
+
+      profile.projects.forEach((proj, idx) => {
+        const li = document.createElement('li');
+        li.className = 'goal-item';
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.className = 'goal-checkbox';
+        checkbox.id = `goal-${idx}`;
+        checkbox.checked = checkedGoals.includes(idx);
+
+        const span = document.createElement('span');
+        span.className = 'goal-text';
+        span.textContent = proj;
+
+        li.appendChild(checkbox);
+        li.appendChild(span);
+
+        li.addEventListener('click', (e) => {
+          if (e.target !== checkbox) {
+            checkbox.checked = !checkbox.checked;
+          }
+          playClickChime();
+          
+          let currentChecked = JSON.parse(localStorage.getItem(localGoalsKey) || '[]');
+          if (checkbox.checked) {
+            if (!currentChecked.includes(idx)) currentChecked.push(idx);
+          } else {
+            currentChecked = currentChecked.filter(x => x !== idx);
+          }
+          localStorage.setItem(localGoalsKey, JSON.stringify(currentChecked));
+        });
+
+        projectsChecklist.appendChild(li);
+      });
+
+      // Populate technologies
+      techTags.innerHTML = '';
+      profile.tech.forEach(t => {
+        const span = document.createElement('span');
+        span.className = 'tech-tag';
+        span.textContent = t;
+        techTags.appendChild(span);
+      });
+
+      // Render score compatibility breakdown list
+      chartContainer.innerHTML = '';
+      const totalPointsSum = Object.values(scores).reduce((a, b) => a + b, 0);
+      const sortedCareers = Object.keys(scores).sort((a, b) => scores[b] - scores[a]);
+      // Show top 3 career matches
+      const topThreeCareers = sortedCareers.slice(0, 3);
+
+      topThreeCareers.forEach(cKey => {
+        const careerVal = scores[cKey];
+        const pct = totalPointsSum > 0 ? Math.round((careerVal / totalPointsSum) * 100) : 0;
+        const colorVar = `var(--color-${cKey})`;
+
+        const row = document.createElement('div');
+        row.className = 'chart-row';
+
+        const name = document.createElement('div');
+        name.className = 'chart-name';
+        name.textContent = careerProfiles[cKey].title;
+
+        const barBg = document.createElement('div');
+        barBg.className = 'chart-bar-bg';
+
+        const barFill = document.createElement('div');
+        barFill.className = 'chart-bar-fill';
+        barFill.style.backgroundColor = colorVar;
+
+        const valText = document.createElement('div');
+        valText.className = 'chart-value';
+        valText.textContent = `${pct}%`;
+
+        barBg.appendChild(barFill);
+        row.appendChild(name);
+        row.appendChild(barBg);
+        row.appendChild(valText);
+        chartContainer.appendChild(row);
+
+        setTimeout(() => {
+          barFill.style.width = `${pct}%`;
+        }, 100);
+      });
+
+      // Set Achievement Badge
+      const randomBadge = badges[Math.floor(Math.random() * badges.length)];
+      badgeIcon.textContent = randomBadge.icon;
+      badgeLabel.textContent = randomBadge.name;
+
+      // Fill progress bar fully
+      quizPctText.textContent = '100%';
+      progressFillBar.style.width = '100%';
+      progressIndicator.setAttribute('aria-valuenow', 100);
+
+      // Restore reflections
+      const savedRef = localStorage.getItem('futurespark-journal');
+      journalText.value = savedRef ? savedRef : '';
+
+      navigateToScreen(resultScreen);
+      triggerCelebration();
+      playVictoryMelody();
+      updateNavbar();
+
+      resultTitle.setAttribute('tabindex', '-1');
+      resultTitle.focus();
+    }
+
+    function resetGame() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      playClickChime();
+      stopCelebration();
+      currentStep = 0;
+      userAnswers = [];
+      progressFillBar.style.width = '0%';
+      navigateToScreen(welcomeScreen);
+      updateNavbar();
+    }
+
+    // --- Journal Autosave ---
+    let notepadSaveTimeout = null;
+    journalText.addEventListener('input', () => {
+      if (notepadSaveTimeout) clearTimeout(notepadSaveTimeout);
+      
+      notepadSaveTimeout = setTimeout(() => {
+        localStorage.setItem('futurespark-journal', journalText.value);
+        saveAlert.classList.add('visible');
+        setTimeout(() => {
+          saveAlert.classList.remove('visible');
+        }, 1500);
+      }, 700);
+    });
+
+    // --- Clipboard Summary ---
+    copyResultsBtn.addEventListener('click', () => {
+      playClickChime();
+      const profile = careerProfiles[matchedWinnerKey];
+      
+      const summaryText = `🚀 FutureSpark Quiz Match Results!
+----------------------------------
+Top Fit Career: ${profile.icon} ${profile.title}
+Badge Earned: ${badgeIcon.textContent} ${badgeLabel.textContent}
+
+My Reflections:
+"${journalText.value || 'None added yet'}"
+
+Discover your future at FutureSpark!`;
+
+      navigator.clipboard.writeText(summaryText).then(() => {
+        const origText = copyResultsBtn.textContent;
+        copyResultsBtn.textContent = "Copied! 📋";
+        setTimeout(() => {
+          copyResultsBtn.textContent = origText;
+        }, 2000);
+      }).catch(err => {
+        alert("Failed to copy results. Try manually copying from the reflection box!");
+      });
+    });
+
+    // --- Answers Modal Logic ---
+    function populateAnswersReport() {
+      modalAnswersList.innerHTML = '';
+      userAnswers.forEach((ansKey, idx) => {
+        const questionObj = quizQuestions[idx];
+        const selectedOption = questionObj.options.find(opt => opt.key === ansKey);
+        
+        const item = document.createElement('div');
+        item.className = 'response-item';
+        
+        const qTitle = document.createElement('div');
+        qTitle.className = 'response-q';
+        qTitle.textContent = `${idx + 1}. ${questionObj.question}`;
+        
+        const aVal = document.createElement('div');
+        aVal.className = 'response-a';
+        
+        const badge = document.createElement('span');
+        badge.className = 'response-badge';
+        badge.textContent = ansKey;
+        
+        const textNode = document.createTextNode(selectedOption.text);
+        
+        aVal.appendChild(badge);
+        aVal.appendChild(textNode);
+        item.appendChild(qTitle);
+        item.appendChild(aVal);
+        
+        modalAnswersList.appendChild(item);
+      });
+    }
+
+    viewAnswersBtn.addEventListener('click', () => {
+      playClickChime();
+      populateAnswersReport();
+      answersModal.classList.remove('hidden');
+      setTimeout(() => {
+        answersModal.classList.add('active');
+      }, 10);
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+      playClickChime();
+      answersModal.classList.remove('active');
+      setTimeout(() => {
+        answersModal.classList.add('hidden');
+      }, 300);
+    });
+
+    // Close modal on outside click
+    answersModal.addEventListener('click', (e) => {
+      if (e.target === answersModal) {
+        closeModalBtn.click();
+      }
+    });
+
+    // --- Navbar Sync and Interaction ---
+    function updateNavbar() {
+      navDiscover.classList.remove('active', 'disabled');
+      navQuiz.classList.remove('active', 'disabled');
+      navResults.classList.remove('active', 'disabled');
+
+      if (currentStep === 0) {
+        navDiscover.classList.add('active');
+        navQuiz.classList.add('disabled');
+        navResults.classList.add('disabled');
+      } else if (currentStep >= 1 && currentStep <= 5) {
+        navQuiz.classList.add('active');
+        navResults.classList.add('disabled');
+      } else if (currentStep === 6) {
+        navResults.classList.add('active');
+      }
+    }
+
+    navLogo.addEventListener('click', () => {
+      if (currentStep > 0) {
+        resetGame();
+      }
+    });
+
+    navDiscover.addEventListener('click', () => {
+      if (currentStep > 0) {
+        resetGame();
+      }
+    });
+
+    navQuiz.addEventListener('click', () => {
+      if (currentStep === 6) {
+        startGame();
+      }
+    });
+
+    // --- Listeners ---
+    startBtn.addEventListener('click', startGame);
+    restartBtn.addEventListener('click', resetGame);
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (currentStep >= 1 && currentStep <= 5) {
+        const optionButtons = answersGrid.querySelectorAll('.answer-btn');
+        if (e.key === '1' && optionButtons[0]) {
+          optionButtons[0].click();
+        } else if (e.key === '2' && optionButtons[1]) {
+          optionButtons[1].click();
+        } else if (e.key === '3' && optionButtons[2]) {
+          optionButtons[2].click();
+        } else if (e.key === '4' && optionButtons[3]) {
+          optionButtons[3].click();
+        }
+      }
+
+      if (e.key === 'Enter') {
+        const activeNode = document.activeElement;
+        if (!activeNode || activeNode === document.body) {
+          if (currentStep === 0) {
+            startGame();
+          } else if (currentStep === 6) {
+            resetGame();
+          }
+        }
+      }
+    });
+
+    // Warm up speech synthesis
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.getVoices();
+    }
+
+  </script>
+</body>
+</html>
