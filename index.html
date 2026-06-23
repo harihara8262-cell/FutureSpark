@@ -1049,19 +1049,87 @@
     }
 
     /* Mobile viewports */
+    .mobile-bottom-nav {
+      display: none;
+    }
+
     @media (max-width: 767px) {
       body {
-        padding: 16px 10px;
+        padding: 16px 10px calc(80px + env(safe-area-inset-bottom, 0)) !important;
+      }
+      .navbar .nav-links {
+        display: none !important;
+      }
+      .mobile-bottom-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 65px;
+        background: rgba(10, 8, 20, 0.85);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        border-top: 1px solid rgba(0, 240, 255, 0.15);
+        box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.5);
+        justify-content: space-around;
+        align-items: center;
+        z-index: 1000;
+        padding-bottom: env(safe-area-inset-bottom, 0);
+      }
+      .mobile-nav-item {
+        background: transparent;
+        border: none;
+        color: var(--text-muted);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.7rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        flex-grow: 1;
+        height: 100%;
+      }
+      .mobile-nav-icon {
+        font-size: 1.25rem;
+        transition: transform 0.2s ease;
+      }
+      .mobile-nav-item.active {
+        color: var(--color-robotics);
+      }
+      .mobile-nav-item.active .mobile-nav-icon {
+        transform: translateY(-2px) scale(1.1);
+      }
+      .mobile-nav-item.disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+        pointer-events: none;
       }
       .result-career-title {
-        font-size: 32px;
+        font-size: clamp(24px, 4vh, 32px) !important;
       }
       .result-layout-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+      }
+      .result-right-panel {
+        gap: 16px !important;
       }
       .strengths-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8px !important;
+      }
+      .strength-item {
+        padding: 10px 12px !important;
+        font-size: 12px !important;
+      }
+      .card, .dashboard-panel {
+        padding: 16px !important;
+        border-radius: 20px !important;
       }
     }
 
@@ -1401,6 +1469,22 @@
     </div>
   </div>
 
+  <!-- Mobile Bottom Navigation Bar -->
+  <nav class="mobile-bottom-nav">
+    <button class="mobile-nav-item active" id="mNavDiscover">
+      <span class="mobile-nav-icon">🧭</span>
+      <span class="mobile-nav-text">Discover</span>
+    </button>
+    <button class="mobile-nav-item disabled" id="mNavQuiz">
+      <span class="mobile-nav-icon">📝</span>
+      <span class="mobile-nav-text">Assessment</span>
+    </button>
+    <button class="mobile-nav-item disabled" id="mNavResults">
+      <span class="mobile-nav-icon">📊</span>
+      <span class="mobile-nav-text">Results</span>
+    </button>
+  </nav>
+
   <script>
     // --- Career Profiles Mapping ---
     const careerProfiles = {
@@ -1682,6 +1766,11 @@
     const navDiscover = document.getElementById('navDiscover');
     const navQuiz = document.getElementById('navQuiz');
     const navResults = document.getElementById('navResults');
+
+    // Mobile Bottom Nav elements
+    const mNavDiscover = document.getElementById('mNavDiscover');
+    const mNavQuiz = document.getElementById('mNavQuiz');
+    const mNavResults = document.getElementById('mNavResults');
 
     // --- Confetti Particle Engine ---
     let particles = [];
@@ -2226,19 +2315,33 @@ Discover your future at FutureSpark!`;
 
     // --- Navbar Sync and Interaction ---
     function updateNavbar() {
+      // Desktop Nav Sync
       navDiscover.classList.remove('active', 'disabled');
       navQuiz.classList.remove('active', 'disabled');
       navResults.classList.remove('active', 'disabled');
+
+      // Mobile Nav Sync
+      mNavDiscover.classList.remove('active', 'disabled');
+      mNavQuiz.classList.remove('active', 'disabled');
+      mNavResults.classList.remove('active', 'disabled');
 
       if (currentStep === 0) {
         navDiscover.classList.add('active');
         navQuiz.classList.add('disabled');
         navResults.classList.add('disabled');
+
+        mNavDiscover.classList.add('active');
+        mNavQuiz.classList.add('disabled');
+        mNavResults.classList.add('disabled');
       } else if (currentStep >= 1 && currentStep <= 5) {
         navQuiz.classList.add('active');
         navResults.classList.add('disabled');
+
+        mNavQuiz.classList.add('active');
+        mNavResults.classList.add('disabled');
       } else if (currentStep === 6) {
         navResults.classList.add('active');
+        mNavResults.classList.add('active');
       }
     }
 
@@ -2255,6 +2358,19 @@ Discover your future at FutureSpark!`;
     });
 
     navQuiz.addEventListener('click', () => {
+      if (currentStep === 6) {
+        startGame();
+      }
+    });
+
+    // Mobile bottom nav listeners
+    mNavDiscover.addEventListener('click', () => {
+      if (currentStep > 0) {
+        resetGame();
+      }
+    });
+
+    mNavQuiz.addEventListener('click', () => {
       if (currentStep === 6) {
         startGame();
       }
